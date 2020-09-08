@@ -85,14 +85,13 @@ namespace Keepr.Controllers
       }
     }
     [HttpPut("{id}")]
-    public ActionResult<Keep> Edit(int id, [FromBody] Keep keepToUpdate)
+    public ActionResult<Keep> Edit(int id, [FromBody] Keep keepEdit)
     {
       try
       {
         string userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-        keepToUpdate.Id = id;
-        keepToUpdate.UserId = userId;
-        return Ok(_ks.Edit(keepToUpdate));
+        keepEdit.Id = id;
+        return Ok(_ks.Edit(keepEdit, userId));
       }
       catch (Exception e)
       {

@@ -48,7 +48,7 @@ namespace Keepr.Services
       return _repo.Create(newKeep);
     }
 
-    internal string Delete(int id, string userId)
+    public string Delete(int id, string userId)
     {
       Keep found = Get(id, userId);
       if (found.UserId != userId)
@@ -62,33 +62,32 @@ namespace Keepr.Services
       throw new Exception("Error, dev check your code. (deletion)");
     }
 
-    internal Keep Edit(Keep editKeep, string userId)
+    public Keep Edit(Keep keepEdit, string userId)
     {
-      Keep found = Get(editKeep.Id, userId);
-      if (found.Views < editKeep.Views)
+      Keep found = Get(keepEdit.Id, userId);
+      if (found.Views < keepEdit.Views)
       {
-        if (_repo.IncrementViews(editKeep))
+        if (_repo.IncrementViewCount(keepEdit))
         {
-          found.Views = editKeep.Views;
+          found.Views = keepEdit.Views;
           return found;
         }
         throw new Exception("Problem, can't increment view count.");
       }
-      if (found.Keeps < editKeep.Keeps)
+      if (found.Keeps < keepEdit.Keeps)
       {
-        if (_repo.IncrementKeptCount(editKeep))
+        if (_repo.IncrementKeptCount(keepEdit))
         {
-          found.Keeps = editKeep.Keeps;
+          found.Keeps = keepEdit.Keeps;
           return found;
         }
         throw new Exception("Problem, can't increment kept count.");
-
       }
-      if (found.UserId == userId && _repo.Edit(editKeep, userId))
+      if (found.UserId == userId && _repo.Edit(keepEdit, userId))
       {
-        return editKeep;
+        return keepEdit;
       }
-      throw new Exception("You cant do that edit.");
+      throw new Exception("Problem, cannot edit, review code. (KeepEdit)");
 
     }
 
