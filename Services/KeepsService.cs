@@ -17,7 +17,7 @@ namespace Keepr.Services
     {
       return _repo.Get();
     }
-    // Public keeps getter
+    // SECTION Public keeps getter
     public Keep Get(int id)
     {
       var found = _repo.GetById(id);
@@ -27,7 +27,8 @@ namespace Keepr.Services
       }
       return found;
     }
-    // Personal keeps getter
+
+    // SECTION Personal keeps getter
 
     public Keep Get(int id, string userId)
     {

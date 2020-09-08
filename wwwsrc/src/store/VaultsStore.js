@@ -33,7 +33,6 @@ export const VaultsStore = {
 
     async addVault({ commit, dispatch }, newVault) {
       try {
-        newVault.img = newVault.img ? newVault.img : newVault.userImg;
         await api.post("vaults", newVault);
         dispatch("getMyVaults");
       } catch (error) {
