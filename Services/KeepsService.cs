@@ -64,26 +64,20 @@ namespace Keepr.Services
 
     public Keep Edit(Keep keepEdit, string userId)
     {
-      Keep found = Get(keepEdit.Id, userId);
-      if (found.Views < keepEdit.Views)
+      Keep foundKeep = Get(keepEdit.Id, userId);
+      if (foundKeep.Views < keepEdit.Views && _repo.IncrementViewCount(keepEdit))
       {
-        if (_repo.IncrementViewCount(keepEdit))
-        {
-          found.Views = keepEdit.Views;
-          return found;
-        }
-        throw new Exception("Problem, can't increment view count.");
+        foundKeep.Views = keepEdit.Views;
+        return foundKeep;
+        // throw new Exception("Problem, can't increment view count.");
       }
-      if (found.Keeps < keepEdit.Keeps)
+      if (foundKeep.Keeps < keepEdit.Keeps && _repo.IncrementKeptCount(keepEdit))
       {
-        if (_repo.IncrementKeptCount(keepEdit))
-        {
-          found.Keeps = keepEdit.Keeps;
-          return found;
-        }
-        throw new Exception("Problem, can't increment kept count.");
+        foundKeep.Keeps = keepEdit.Keeps;
+        return foundKeep;
+        // throw new Exception("Problem, can't increment kept count.");
       }
-      if (found.UserId == userId && _repo.Edit(keepEdit, userId))
+      if (foundKeep.UserId == userId && _repo.Edit(keepEdit, userId))
       {
         return keepEdit;
       }
