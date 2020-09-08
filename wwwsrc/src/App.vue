@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <navbar />
-    <router-view />
+    <router-view class="font-white" />
   </div>
 </template>
 
@@ -15,8 +15,8 @@ export default {
     this.$store.dispatch("setBearer", this.$auth.bearer);
   },
   components: {
-    Navbar
-  }
+    Navbar,
+  },
 };
 </script>
 
@@ -24,4 +24,7 @@ export default {
 @import "./assets/_variables.scss";
 @import "bootstrap";
 @import "./assets/_overrides.scss";
+.font-white {
+  color: var(--white);
+}
 </style>
