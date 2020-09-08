@@ -31,6 +31,30 @@ namespace Keepr.Services
       return _repo.GetByUserId(userId);
     }
 
+    internal Vault GetById(int id, string userId)
+    {
+      var found = Get(id);
+      if (found.UserId != userId)
+      {
+        throw new Exception("Problem, this vault belongs to a different user");
+      }
+      return _repo.GetById(id, userId);
+    }
+
+    internal string Delete(int id, string userId)
+    {
+      Vault found = Get(id);
+      if (found.UserId != userId)
+      {
+        throw new Exception("Problem, this vault belongs to a different user");
+      }
+      if (_repo.Delete(id, userId))
+      {
+        return "Successfully Deleted";
+      }
+      throw new Exception("Problem, dev check your code (vaultservice delete)");
+    }
+
   }
 
 }
