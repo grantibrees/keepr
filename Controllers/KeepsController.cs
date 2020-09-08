@@ -11,43 +11,93 @@ using Microsoft.Extensions.Logging;
 
 namespace Keepr.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class KeepsController : ControllerBase
+  [ApiController]
+  [Route("api/[controller]")]
+  public class KeepsController : ControllerBase
+  {
+    private readonly KeepsService _ks;
+    public KeepsController(KeepsService ks)
     {
-        private readonly KeepsService _ks;
-        public KeepsController(KeepsService ks)
-        {
-            _ks = ks;
-        }
-        [HttpGet]
-        public ActionResult<IEnumerable<Keep>> Get()
-        {
-            try
-            {
-                return Ok(_ks.Get());
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            };
-        }
-
-        [HttpPost]
-        [Authorize]
-        public ActionResult<Keep> Post([FromBody] Keep newKeep)
-        {
-            try
-            {
-                var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                newKeep.UserId = userId;
-                return Ok(_ks.Create(newKeep));
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
-
+      _ks = ks;
     }
+    [HttpGet]
+    public ActionResult<IEnumerable<Keep>> Get()
+    {
+      try
+      {
+        return Ok(_ks.Get());
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      };
+    }
+
+    [HttpPost]
+    [Authorize]
+    public ActionResult<Keep> Post([FromBody] Keep newKeep)
+    {
+      try
+      {
+        var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        newKeep.UserId = userId;
+        return Ok(_ks.Create(newKeep));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+
+
+    [HttpDelete("{id}")]
+    [Authorize]
+    public ActionResult<string> Delete(int id)
+    {
+      try
+      {
+        string userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        return Ok(_ks.Delete(id, userId));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      };
+    }
+
+
+    [HttpGet("{id}")]
+    public ActionResult<Keep> GetById(int id)
+    {
+      try
+      {
+        string userId = "";
+        var claim = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+        if (claim != null)
+        {
+          userId = claim.Value;
+        }
+        return Ok(_ks.Get(id, userId));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+    [HttpPut("{id}")]
+    public ActionResult<Keep> Edit(int id, [FromBody] Keep keepToUpdate)
+    {
+      try
+      {
+        string userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        keepToUpdate.Id = id;
+        keepToUpdate.UserId = userId;
+        return Ok(_ks.Edit(keepToUpdate));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+  }
 }
