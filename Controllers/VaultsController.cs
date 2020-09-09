@@ -85,6 +85,22 @@ namespace Keepr.Controllers
         return BadRequest(e.Message);
       };
     }
+
+
+    [HttpGet("{vaultId}/keeps")]
+
+    public ActionResult<IEnumerable<VaultKeepViewModel>> GetKeepsByVaultId(int vaultId)
+    {
+      try
+      {
+        var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        return Ok(_vks.GetKeepsByVaultId(vaultId, userId));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      };
+    }
   }
 
 }
