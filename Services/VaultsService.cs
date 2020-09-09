@@ -26,12 +26,12 @@ namespace Keepr.Services
       return _repo.Get(id);
     }
 
-    internal IEnumerable<Vault> GetByUserId(string userId)
+    public IEnumerable<Vault> GetByUserId(string userId)
     {
       return _repo.GetByUserId(userId);
     }
 
-    internal Vault GetById(int id, string userId)
+    public Vault GetById(int id, string userId)
     {
       var found = Get(id);
       if (found.UserId != userId)
@@ -41,7 +41,7 @@ namespace Keepr.Services
       return _repo.GetById(id, userId);
     }
 
-    internal string Delete(int id, string userId)
+    public string Delete(int id, string userId)
     {
       Vault found = Get(id);
       if (found.UserId != userId)

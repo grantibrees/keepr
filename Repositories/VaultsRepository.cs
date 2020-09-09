@@ -16,7 +16,7 @@ namespace Keepr.Repositories
     }
 
 
-    internal Vault Create(Vault VaultData)
+    public Vault Create(Vault VaultData)
     {
       string sql = @"
            INSERT INTO vaults
@@ -42,12 +42,12 @@ namespace Keepr.Repositories
     }
 
 
-    internal Vault GetById(int id, string userId)
+    public Vault GetById(int id, string userId)
     {
       string sql = "SELECT * FROM vaults WHERE id = @id AND userId = @userId";
       return _db.QueryFirstOrDefault<Vault>(sql, new { id, userId });
     }
-    internal bool Delete(int id, string userId)
+    public bool Delete(int id, string userId)
     {
       string sql = "DELETE FROM vaults WHERE id = @id AND userId = @userId LIMIT 1";
       int affectedRows = _db.Execute(sql, new { id, userId });

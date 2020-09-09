@@ -15,13 +15,13 @@ namespace Keepr.Repositories
       _db = db;
     }
 
-    internal IEnumerable<Keep> Get()
+    public IEnumerable<Keep> Get()
     {
       string sql = "SELECT * FROM Keeps WHERE isPrivate = 0;";
       return _db.Query<Keep>(sql);
     }
 
-    internal Keep Create(Keep KeepData)
+    public Keep Create(Keep KeepData)
     {
       string sql = @"
            INSERT INTO keeps
@@ -32,20 +32,20 @@ namespace Keepr.Repositories
       KeepData.Id = _db.ExecuteScalar<int>(sql, KeepData);
       return KeepData;
     }
-    internal Keep GetById(int id)
+    public Keep GetById(int id)
     {
       string sql = "SELECT * FROM keeps WHERE id = @id";
       return _db.QueryFirstOrDefault<Keep>(sql, new { id });
     }
 
-    internal bool Delete(int id, string userId)
+    public bool Delete(int id, string userId)
     {
       string sql = "DELETE FROM keeps WHERE id = @id AND userId = @userId LIMIT 1";
       int affectedRows = _db.Execute(sql, new { id, userId });
       return affectedRows == 1;
     }
 
-    internal bool Edit(Keep editKeep, string userId)
+    public bool Edit(Keep editKeep, string userId)
     {
       editKeep.UserId = userId;
       string sql = @"
@@ -64,7 +64,7 @@ namespace Keepr.Repositories
       return affectedRows == 1;
     }
 
-    internal bool IncrementKeptCount(Keep editKeep)
+    public bool IncrementKeptCount(Keep editKeep)
     {
       string sql = @"
       UPDATE keeps
@@ -75,7 +75,7 @@ namespace Keepr.Repositories
       return affectedRows == 1;
     }
 
-    internal bool IncrementViewCount(Keep editKeep)
+    public bool IncrementViewCount(Keep editKeep)
     {
       string sql = @"
       UPDATE keeps
@@ -85,7 +85,7 @@ namespace Keepr.Repositories
       int affectedRows = _db.Execute(sql, editKeep);
       return affectedRows == 1;
     }
-    internal IEnumerable<Keep> GetUsersKeeps(string userId)
+    public IEnumerable<Keep> GetUsersKeeps(string userId)
     {
       string sql = "SELECT * FROM keeps WHERE userId = @userId";
       return _db.Query<Keep>(sql, new { userId });
