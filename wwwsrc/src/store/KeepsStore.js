@@ -46,6 +46,7 @@ export const KeepsStore = {
         console.error(error);
       }
     },
+
     async addKeepToVault({ commit, dispatch }, keepData) {
       await api.post("vaultkeeps", keepData.vaultKeep);
       dispatch("incrementKeepKeptCount", keepData.keep);

@@ -61,7 +61,7 @@ export default {
     vaults() {
       return this.$store.state.VaultsStore.myVaults;
     },
-    isCreator() {
+    owner() {
       return this.$auth.user.sub == this.keep.userId;
     },
   },

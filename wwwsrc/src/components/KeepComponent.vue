@@ -1,5 +1,5 @@
 <template>
-  <div class="m-2" @click="router.push({ name: 'KeepDeets', params: {id: keep.id}})">
+  <div class="m-2" @click="$router.push({ name: 'KeepDeets', params: {id: keep.id}})">
     <img :src="keep.img" />
     <div>
       <h4>{{keep.name}}</h4>
@@ -10,7 +10,6 @@
 <script>
 export default {
   name: "keepComponent" /*  */,
-  props: ["keep", "vaultId"],
   data() {
     return {};
   },
@@ -32,6 +31,7 @@ export default {
       this.$store.dispatch("deleteVKrelationship", vkRelationshipData);
     },
   },
+  props: ["keep", "vaultId"],
 };
 </script>
 

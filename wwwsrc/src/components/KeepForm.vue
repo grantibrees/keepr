@@ -1,6 +1,6 @@
 <template>
   <div class="keepForm">
-    <form @submit.prevent="addKeep">
+    <form @submit.prevent="addNewKeep">
       <div class="form-group">
         <label for="make">Title</label>
         <input
@@ -62,8 +62,8 @@ export default {
     };
   },
   methods: {
-    addKeep() {
-      this.$store.dispatch("addKeep", { ...this.newKeep });
+    addNewKeep() {
+      this.$store.dispatch("addNewKeep", { ...this.newKeep });
       this.newKeep = {
         isPrivate: false,
       };
@@ -72,5 +72,5 @@ export default {
 };
 </script>
 
-<style>q
+<style>
 </style>

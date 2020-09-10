@@ -4,10 +4,7 @@
       <div class="col-12 bg-white">
         <h2>{{vault.name}}</h2>
         <h5>{{vault.description}}</h5>
-        <div class="row">
-          <h1>YOUR VAULTS</h1>
-          <button class="btn btn-outline-success" @click="showKeepForm = !showKeepForm">+</button>
-        </div>
+        <button class="btn btn-outline-success" @click="showKeepForm = !showKeepForm">+</button>
         <keepForm v-if="showKeepForm" />
         <div class="row" v-show="keeps.length == 0">
           <div>
@@ -15,7 +12,7 @@
           </div>
         </div>
 
-        <button class="btn btn-outline-danger" @click="deleteKeep">Delete Keep</button>
+        <button class="btn btn-outline-danger" @click="deleteVault">Delete Vault</button>
       </div>
     </div>
     <div class="row">
@@ -26,15 +23,21 @@
 
 <script>
 import keep from "../components/KeepComponent";
+import keepForm from "../components/KeepForm";
 export default {
   name: "VaultDeets",
-  // beforeRouteLeave(to, from, next) {
-  //   this.$store.state.VaultsStore.activeVault = {};
-  //   next();
-  // },
+  beforeRouteLeave(to, from, next) {
+    this.$store.state.VaultsStore.activeVault = {};
+    next();
+  },
+  data() {
+    return {
+      showKeepForm: false,
+    };
+  },
   mounted() {
-    this.$store.dispatch("getVaultById", this.$route.params.id);
-    this.$store.dispatch("getKeepsByVaultId", this.$route.params.id);
+    this.$store.dispatch("getVaultById", this.$route.params.vaultId);
+    this.$store.dispatch("getKeepsByVaultId", this.$route.params.vaultId);
   },
   computed: {
     vault() {
@@ -51,6 +54,7 @@ export default {
   },
   components: {
     keep,
+    keepForm,
   },
 };
 </script>

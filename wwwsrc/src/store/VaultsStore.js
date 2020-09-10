@@ -66,7 +66,7 @@ export const VaultsStore = {
       }
     },
 
-    async deleteVaultKeep({ commit, dispatch }, vaultKeepData) {
+    async deleteVKrelationship({ commit, dispatch }, vaultKeepData) {
       try {
         await api.delete("vaultkeeps/" + vaultKeepData.vaultKeepId);
         dispatch("getKeepsByVaultId", vaultKeepData.vaultId);

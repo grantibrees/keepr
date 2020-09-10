@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white" @click="$router.push({name: 'VaultDeets', params: {id: vault.id}})">
+  <div class="bg-white" @click="$router.push({name: 'VaultDeets', params: {vaultId: vault.id}})">
     <div class="row">
       <div class="col-12">
         <div class="row">
