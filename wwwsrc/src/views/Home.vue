@@ -4,7 +4,7 @@
       <h1>Welcome to Keepr</h1>
     </div>
     <div class="row">
-      <keep v-for="keep in keeps" :key="keep.Id" :keep="keep" />
+      <keep v-for="keep in allKeeps" :key="keep.Id" :keep="keep" />
     </div>
   </div>
 </template>
@@ -14,17 +14,14 @@ import keep from "../components/KeepComponent.vue";
 export default {
   name: "home",
   mounted() {
-    this.$store.dispatch("getMyKeeps");
+    this.$store.dispatch("getAllKeeps");
   },
   computed: {
     user() {
       return this.$store.state.user;
     },
-    publicKeeps() {
-      return this.$store.state.KeepsStore.PublicKeeps;
-    },
-    privateKeeps() {
-      return this.$store.state.KeepsStore.PrivateKeeps;
+    allKeeps() {
+      return this.$store.state.KeepsStore.allKeeps;
     },
   },
   methods: {
@@ -32,5 +29,6 @@ export default {
       this.$store.dispatch("logout");
     },
   },
+  components: { keep },
 };
 </script>

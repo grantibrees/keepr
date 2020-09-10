@@ -6,7 +6,7 @@ export const VaultsStore = {
   state: {
     myVaults: [],
     activeVault: {},
-    // vaultKeeps: [],
+    vaultKeeps: [],
   },
 
   mutations: {
@@ -16,9 +16,9 @@ export const VaultsStore = {
     setActiveVault(state, vault) {
       state.activeVault = vault;
     },
-    // setVaultKeeps(state, vaultKeeps) {
-    //   state.vaultKeeps = vaultKeeps;
-    // },
+    setVaultKeeps(state, vaultKeeps) {
+      state.vaultKeeps = vaultKeeps;
+    },
   },
 
   actions: {
@@ -47,6 +47,8 @@ export const VaultsStore = {
         console.error(error);
       }
     },
+
+
     async getKeepsByVaultId({ commit, dispatch }, vaultId) {
       try {
         let res = await api.get("vaults/" + vaultId + "/keeps");
@@ -63,6 +65,7 @@ export const VaultsStore = {
         console.error(error);
       }
     },
+
     async deleteVaultKeep({ commit, dispatch }, vaultKeepData) {
       try {
         await api.delete("vaultkeeps/" + vaultKeepData.vaultKeepId);
