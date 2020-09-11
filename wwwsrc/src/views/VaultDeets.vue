@@ -26,10 +26,6 @@ import keep from "../components/KeepComponent";
 import keepForm from "../components/KeepForm";
 export default {
   name: "VaultDeets",
-  beforeRouteLeave(to, from, next) {
-    this.$store.state.VaultsStore.activeVault = {};
-    next();
-  },
   data() {
     return {
       showKeepForm: false,
@@ -49,7 +45,7 @@ export default {
   },
   methods: {
     deleteVault() {
-      this.$store.dispatch("deleteVault", this.$route.params.id);
+      this.$store.dispatch("deleteVault", this.$route.params.vaultId);
     },
   },
   components: {
