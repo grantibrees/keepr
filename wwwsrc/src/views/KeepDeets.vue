@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="row justify-content-center">
-      <div class="col-12 text-center">
+      <div class="col-12 text-center text-dark">
         <h5>Viewed: {{ keep.views }}</h5>
         <h5>Kept: {{ keep.keeps }}</h5>
         <img :src="keep.img" />

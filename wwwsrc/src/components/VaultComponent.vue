@@ -1,7 +1,10 @@
 <template>
-  <div class="bg-white" @click="$router.push({name: 'VaultDeets', params: {vaultId: vault.id}})">
+  <div
+    class="bg-white m-3 text-dark col-4"
+    @click="$router.push({name: 'VaultDeets', params: {vaultId: vault.id}})"
+  >
     <div class="row">
-      <div class="col-12">
+      <div class="col-12 text-dark">
         <div class="row">
           <h5 class="card-title">{{vault.name}}</h5>
         </div>

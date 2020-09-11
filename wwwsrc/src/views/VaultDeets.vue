@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-12 bg-white">
+      <div class="col-12 bg-white text-dark">
         <h2>{{vault.name}}</h2>
         <h5>{{vault.description}}</h5>
         <button class="btn btn-outline-info" @click="showKeepForm = !showKeepForm">Add a new Keep</button>
