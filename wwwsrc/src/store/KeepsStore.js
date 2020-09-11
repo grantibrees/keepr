@@ -54,7 +54,8 @@ export const KeepsStore = {
 
     async incrementKeepViewCount({ commit, dispatch }, keep) {
       try {
-        keep.viewCount += 1;
+        // debugger
+        keep.views += 1;
         let res = await api.put("keeps/" + keep.id, keep);
         commit("setKeepNumbers", res.data);
       } catch (error) {

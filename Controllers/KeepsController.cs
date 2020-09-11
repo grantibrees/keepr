@@ -85,6 +85,7 @@ namespace Keepr.Controllers
       }
     }
     [HttpPut("{id}")]
+    [Authorize]
     public ActionResult<Keep> Edit(int id, [FromBody] Keep keepEdit)
     {
       try

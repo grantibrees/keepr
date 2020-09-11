@@ -4,7 +4,7 @@
       <div class="col-12 bg-white">
         <h2>{{vault.name}}</h2>
         <h5>{{vault.description}}</h5>
-        <button class="btn btn-outline-success" @click="showKeepForm = !showKeepForm">+</button>
+        <button class="btn btn-outline-info" @click="showKeepForm = !showKeepForm">Add a new Keep</button>
         <keepForm v-if="showKeepForm" />
         <div class="row" v-show="keeps.length == 0">
           <div>

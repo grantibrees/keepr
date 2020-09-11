@@ -1,5 +1,5 @@
 <template>
-  <div class="m-2" @click="$router.push({ name: 'KeepDeets', params: {id: keep.id}})">
+  <div class="m-2" @click="$router.push({ name: 'KeepDeets', params: {keepId: keep.id}})">
     <img :src="keep.img" />
     <div>
       <h4>{{keep.name}}</h4>

@@ -45,7 +45,11 @@ export default {
   methods: {
     async login() {
       await this.$auth.loginWithPopup();
-      this.$store.dispatch("setBearer", this.$auth.bearer);
+      if (this.$auth.isAuthenticated) {
+        this.$store.dispatch("setBearer", this.$auth.bearer);
+        this.$store.dispatch("getMyVaults");
+        this.$store.dispatch("getMyKeeps");
+      }
       console.log("this.$auth.user: ");
       console.log(this.$auth.user);
     },

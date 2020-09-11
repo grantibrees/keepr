@@ -8,7 +8,7 @@
           type="text"
           name="title"
           class="form-control"
-          placeholder="Enter title...."
+          placeholder="Add a name for your Keep"
           required
         />
       </div>
@@ -19,7 +19,7 @@
           type="text"
           name="description"
           class="form-control"
-          placeholder="Enter description...."
+          placeholder="Add a Keep Description"
           required
         />
       </div>
@@ -30,7 +30,7 @@
           type="text"
           name="imgUrl"
           class="form-control"
-          placeholder="Enter img url...."
+          placeholder="Add a Keep image URL"
           required
         />
       </div>

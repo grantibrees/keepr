@@ -4,26 +4,28 @@
       <div class="col-12 text-center">
         <h5>Viewed: {{ keep.views }}</h5>
         <h5>Kept: {{ keep.keeps }}</h5>
+        <img :src="keep.img" />
+        <h4>{{keep.name}}</h4>
+        <div>{{keep.description}}</div>
+      </div>
 
-        <div class="dropdown" v-if="$auth.isAuthenticated">
-          <button
-            class="btn btn-outline-primary dropdown-toggle interact-buttons"
-            type="button"
-            id="dropdownMenuButton"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >Add to a Vault</button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a
-              class="dropdown-item"
-              v-for="vault in vaults"
-              :key="vault.id"
-              href="#"
-              @click="addKeepToVault(vault.id)"
-            >{{ vault.name }}</a>
-          </div>
+      <div class="dropdown">
+        <button
+          class="btn btn-secondary dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >Add to a vault</button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a v-for="vault in vaults" :key="vault.id" href="#" class="dropdown-item">
+            <p @click="addKeepToVault(vault.id)">{{vault.name}}</p>
+          </a>
         </div>
+      </div>
+      <div v-if="isOwner == true">
+        <button class="btn btn-danger btn-sm" @click="deleteKeep">Delete Keep Forever</button>
       </div>
     </div>
   </div>
@@ -32,15 +34,22 @@
 
 <script>
 import vault from "../components/VaultComponent";
+import { onAuth } from "@bcwdev/auth0-vue";
 export default {
   name: "keepDeets",
-  beforeRouteLeave(to, from, next) {
+  beforeDestroy() {
     this.$store.state.KeepsStore.activeKeep = {};
-    next();
   },
-  mounted() {
-    this.$store.dispatch("getKeepById", this.$route.params.id);
-    this.$store.dispatch("getMyVaults");
+  async mounted() {
+    await onAuth();
+    if (this.$auth.isAuthenticated) {
+      this.$store.dispatch("getKeepById", this.$route.params.keepId);
+    }
+  },
+  data() {
+    return {
+      isOwner: false,
+    };
   },
   methods: {
     addKeepToVault(vaultId) {
@@ -51,7 +60,7 @@ export default {
       });
     },
     deleteKeep() {
-      this.$store.dispatch("deleteKeep", this.$route.params.id);
+      this.$store.dispatch("deleteKeep", this.$route.params.keepId);
     },
   },
   computed: {
@@ -62,7 +71,9 @@ export default {
       return this.$store.state.VaultsStore.myVaults;
     },
     owner() {
-      return this.$auth.user.sub == this.keep.userId;
+      if (this.$auth.user.sub == this.keep.userId) {
+        return (this.isOwner = true);
+      }
     },
   },
   components: {
