@@ -37,9 +37,7 @@ import vault from "../components/VaultComponent";
 import { onAuth } from "@bcwdev/auth0-vue";
 export default {
   name: "keepDeets",
-  beforeDestroy() {
-    this.$store.state.KeepsStore.activeKeep = {};
-  },
+
   async mounted() {
     await onAuth();
     if (this.$auth.isAuthenticated) {
