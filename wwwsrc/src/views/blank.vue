@@ -17,7 +17,7 @@ export default {
       return this.store.state.cars;
   */,
   methods: {} /* Functions that DO things, Commit and Dispatch */,
-  components: {} /* Pulls a components file as a child to reference. Often like a for A=[]\
+  components: {} /* Pulls a components file as a child to reference. Often like a for 
   ÷*/,
 };
 </script>
