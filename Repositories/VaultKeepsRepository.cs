@@ -36,7 +36,7 @@ namespace Keepr.Repositories {
     }
 
     public VaultKeep Create (VaultKeep VaultKeepData) {
-      // The first sql statement updates the keep as it's being made
+      // The first sql statement updates the keep as it's being created
       string sql = @"
       UPDATE keeps SET keeps = keeps + 1
       WHERE id = @KeepId;
